@@ -1,0 +1,6 @@
+{
+  "name": "Timtris",
+  "tagline": "Tetris and Dr. Mario implementation in Java Swing with network player support (2nd Semester Bachelor)",
+  "body": "# Timtris\r\nTetris and Dr. Mario implementation in Java Swing with network player support (2nd Semester Bachelor)\r\n![Timtris](https://github.com/situx/Timtris/blob/master/documentation/screenshot.png)\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
