@@ -1,0 +1,92 @@
+\documentclass[10pt,a4paper,titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{xcolor}
+\usepackage{qtree}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[xetex, hypertexnames=false, breaklinks=true, pdfborder={0 0 0},
+pdfauthor={Timo Homburg},
+pdftitle={Timtris Project Description},
+pdfsubject={Timtris Project},
+pdfkeywords={Java,Game,Tetris},
+pdfproducer={Xetex with hyperref},
+pdfcreator={Pdflatex}]{hyperref}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+\lstset{
+	basicstyle=\footnotesize,
+	frame=single,,
+	columns=fullflexible,
+	showstringspaces=false,
+	commentstyle=\color{gray}\upshape,
+	keepspaces
+	% Linienstaerke des Rahmens
+}
+\lstdefinelanguage{XML}
+{
+	morestring=[b]",
+	morestring=[s]{>}{<},
+	morecomment=[s]{<?}{?>},
+	stringstyle=\color{black},
+	identifierstyle=\color{darkblue},
+	keywordstyle=\color{cyan},
+	morekeywords={xmlns,version,type}% list your attributes here
+}
+\begin{document}
+	\tableofcontents
+	\ \\\\\\\
+	\textbf{\large Timtris Project Description}\\
+	\section{Introduction}
+	The game Timtris is a Java implementation of the games Tetris and Dr. Mario which is also playable over the network. It emerged out of a university project.\\
+	The project can be started using the main method in class: Board.class\\
+	\subsection{Goals and Features}
+	The game is based on the well known game Tetris.
+	7 different stones should be placed on the gameboard in order to complete horizontal rows. Said rows will be deleted on completion and points are awarded for each deleted row respectively. (1 point per GeometricObject, if two or more lines are deleted at once, 4 points are awarded in addition). The game is lost once no stones can be placed on the gameboard anymore. As such, in single player mode the game is endless in theory but will increase in difficulty from level to level. In higher levels certain effects increase the difficulty of the game even further.
+	\subsection{Game Effects}
+	Effects present in the game are as follows:
+	\begin{itemize}
+		\item The starting position of a falling stone is moved from the middle position to a random other position
+		\item The stones are rotated randomly on creation
+		\item Immediate dropping of a stone from its position of origin
+		\item Random deletion of a GeometricObject in the list
+		\item Adding of additional lines with exact one hole
+		\item Dropping of two geometric objects similar to MarioMod 
+	\end{itemize}
+	Whether effects are present in the game is subject to the difficulty settings of the game. Its default value is Medium.
+	\section{Network Mode}
+	A network player mode hade been implemented to play the game with an additional player over the network, similar to the single player mode. Games can be concluded using a point limit (the first to achieve the limit wins), a time limit (the player with most points when the time limit is reached wins) or if one of the two players loses his/her match by not being able to set an additional stone.
+	\subsection{Limitations of the Network Mode}
+	The network mode has only been implemented to support two players. If a row is deleted by one of the two players, the opponent will receive a row with a hole in it on his/her gameboard. As a future extension of the project it could be possible to add more players into the game. However a new concept of distributing rows should be thought of for this purpose, as more players means more potential rows to be distributed to others.
+	\section{MarioMod}
+	Another modification implemented in the project is based on the game Dr. Mario.
+	In this modification, circles on the gameboard need to be eliminated by vertically stacking four stones of the same color on top of them. In contrast to Dr. Mario, on elimination of circles stones which would in Dr. Mario fall down using a gravity mechanism will remain floating in the gameboard in this version. This increases the complexity of the game, as floating Geometric Objects can be an obstacle in the elimination of the circles. If two circles would be deleted by a combination of stackings, only one circle will be eliminated to complicate the game even further.
+	\subsection{Difficulty Level}
+	The difficulty of the modification is determined by the speed of the stones increasing after the elimination of a difficulty-level dependent amount of removed circles. If all circles on the gameboard have been deleted, the speed resets to a level specific speed and a new gameboard including more circles to be eliminated will be created. The game is lost if a stone cannot be placed on the gameboard.
+	\section{Objectoriented Architecture of the Game}
+	The objectoriented architecture of the game is based on the in-semester developed GeometricObject class which has been used to create the Tetris stones. This class is based on the class Vertex which is used to move the Object being created. A subclass of GeometricObject: Circle is used in the Mario Modification of the Game. Furthermore the interfaces Paintable and MoveableObject, as well as a KeyListener to rotate and move the stones have been implemented. 
+    Many classes, among others for the network communication have been imported from the Java libraries.
+	\subsection{Description of classes}
+	A reasonable partition of the functions of the program to classes has been achieved as follows:
+	\begin{itemize}
+		\item The class Board creates the gameboard and its functions (i.e. painting of objects, the pause screen)
+		\item The Delete class deletes GeometricObjects from the screen if necessary and handles the datastructures of GeometricObjects.
+		\item The class Game starts and ends the games that have been implemented in Timtris and attempts to write a log file including highscores to the harddrive.
+		\item The class KeyMove deals with the Left-Right movements of the stones and handles creashes which occurs due to those movements. It also implements th "down" function enabling a quick move downwards for the stones.
+		\item The class Makeo creates necessary GeometricObjects and creates corresponding effects as necessary by the difficulty setting of the game
+		\item The MarioMod classs implements adjusted function to generate and delete GeometricObjects in the Mario Modification of the game.
+		\item The class Menu included the contents of the menubar of the game and the contents of the two dialog windows for the manual and about screen, as well as the option screen of the game.
+		\item The Network class implements function to start a client and a server and the creatioin of the several frames needed to guide the user during the start of a network game.
+		\item The class Rotate implements the rotation algorithms of the game costumized for every type of stone
+		\item A subclass of JLabel implements the StatusBar of the game which is responsible to display the scores of the player and in the network mode also the scores of the opponoent, a time limit and/or the point limit of the game.
+	\end{itemize}
+	All functions of the classes are not static and can be replaced easily.
+	\section{Known Issues}
+	In the network mode, if a player creates a server game more than two times in a row, the timer on the client side does not work. If the two players exchange in providing the server this error does not occur.
+	
+\end{document}

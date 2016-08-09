@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Timtris:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Timtris_jar</output-path>
+    <root id="archive" name="Timtris.jar">
+      <element id="module-output" name="Timtris" />
+    </root>
+  </artifact>
+</component>
